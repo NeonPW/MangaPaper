@@ -2,6 +2,8 @@
   import { computed, ref, watch } from 'vue';
   import { Manga } from '../util/constants';
   import { fetchPages } from '../util/pages';
+  import MangaViewerInfo from './MangaViewerInfo.vue';
+import MangaViewerSidebar from './MangaViewerSidebar.vue';
 
   const props = defineProps<{
     manga: Manga;
@@ -16,18 +18,21 @@
   const lastPage = ref(false);
   const firstPage = ref(false);
 
+
   const currentPage = ref(props.manga?.startPage ?? 0);
-  const currentChapter = ref(props.manga?.startChapter ?? 0);
+  const currentChapterIndex = ref(props.manga?.startChapter ?? 0);
+  const currentChapter = ref(props.manga?.chapters?.[currentChapterIndex.value]);
   const chapterTitle = ref('');
   const pageCount = computed(() => pages.value.length);
   const pageImage = computed(() => pages.value?.[currentPage.value]);
+
+  const mangaTitle = computed(() => props.manga?.attributes.title.en);
 
   const nextPage = () => {
     if (currentPage.value + 1 < pageCount.value){
       currentPage.value = Math.min(currentPage.value + 1, pageCount.value ? pageCount.value - 1 : 0);
       loading.value = true;
     }
-    
   };
 
   const previousPage = () => {
@@ -42,21 +47,20 @@
   };
 
   const nextChapter = () => {
-    currentChapter.value = currentChapter.value + 1;
+    currentChapterIndex.value = currentChapterIndex.value + 1;
     loading.value = true;
   }
 
   const previousChapter = () => {
-    currentChapter.value = currentChapter.value - 1;
+    currentChapterIndex.value = currentChapterIndex.value - 1;
     loading.value = true;
   }
 
-  const currentChapterId = computed(() => {
-    return props.manga?.chapters?.[currentChapter.value].id;
-  })
+  const changeChapter = (index: number) => {
+    currentChapterIndex.value = index;
+  }
 
   const checkPageable = () =>{
-
     lastPage.value = currentPage.value == pageCount.value -1;
     firstPage.value = currentPage.value == 0;
   }
@@ -66,9 +70,10 @@
     emits('imageLoaded');
   }
 
-  watch(currentChapter, async () => {
-    const chapter = props.manga?.chapters?.[currentChapter.value];
+  watch(currentChapterIndex, async () => {
+    const chapter = props.manga?.chapters?.[currentChapterIndex.value];
     if (!chapter) return;
+    currentChapter.value = chapter;
     chapterTitle.value = chapter.attributes?.title ?? '';
     loading.value = true;
     pages.value = await fetchPages(chapter.id)
@@ -89,45 +94,31 @@
 <div :class="`manga-viewer__background overlay ${blurrerer}`" @click="closeViewer">
   <div class="MangaViewer__content" @click="(e) => e.stopPropagation()">
 
-    <div class="mangaViewer__info">
-      <h1 class="manga-title">{{manga.attributes?.title.en}}</h1>
-      <div class="mangaViewer__info-chapter">
-        Chapter {{currentChapter + 1}} {{chapterTitle ? `- ${chapterTitle}` : ''}}
-      </div>
-      <div class="mangaViewer__info-pager">
-        {{currentPage + 1}} / {{pageCount}}
-      </div>
-    </div>
+    <MangaViewerInfo 
+      :chapter="currentChapter"
+      :current-page="currentPage"
+      :manga-title="mangaTitle"
+      :page-count="pageCount"
+    />
 
     <div style="display:flex;justify-content:center;">
       <div style="position:relative;pointer-events:all;">
-        <div class="loader-line" v-if="loading"></div>
         <div class="MangaViewer__image">
           <img :src="pageImage" @load="imageLoaded" @error="(e) => $emit('imageError', e)" v-bind="$attrs"
             v-if="pageImage" />
         </div>
+
+        <div class="loader-line" v-if="loading"></div>
+
         <div class="mangaViewer__pager">
           <div :class="`mangaViewer__pager-left ${firstPage ? 'first' : ''}`" @click="previousPage"></div>
           <div :class="`mangaViewer__pager-right ${lastPage ? 'last' : ''}`" @click="nextPage"></div>
         </div>
       </div>
-
-      <div class="mangaViewer__sidebar">
-        <div class="title">Chapters</div>
-
-        <div class="mangaViewer__chapter-list">
-          <div
-            v-for="(chapter, index) in manga.chapters"
-            :key="chapter.id"
-            class="mangaViewer__chapter-list-item"
-            :class="[chapter.id === currentChapterId ? 'cur' : '']"
-            @click="currentChapter = index"
-          >
-            Chapter {{chapter.attributes.chapter}}
-          </div>
-        </div>
-      </div>
     </div>
+
+    <MangaViewerSidebar :chapters="manga.chapters" :current-chapter="currentChapterIndex" @change-chapter="changeChapter" />
+
     <div class="MangaViewer__actions">
       <button @click="previousChapter">Prev</button>
       <div>{{currentPage + 1}} / {{pageCount}}</div>
@@ -146,24 +137,6 @@
     color:white;
     text-shadow: 3px 3px 5px rgba(0,0,0,0.6);
     position:relative;
-  }
-
-  .mangaViewer__info-pager{
-    position:absolute;
-    bottom:0;
-    right:10px;
-  }
-
-  .mangaViewer__info-chapter{
-    text-align:center;
-    font-size: 1.25em;
-  }
-
-  .manga-title{
-    color:white;
-    font-weight:700;
-    font-size:2.4em;
-    margin:0;
   }
 
   .manga-viewer__background{
@@ -188,44 +161,6 @@
     width:100%;
     height:100%;
     background-color:rgba(255,0,0,0.1);
-  }
-
-  .mangaViewer__sidebar{
-    background-color:white;
-    margin-left:10px;
-    border-radius:5px;
-    max-height:80vh;
-    max-width:200px;
-    overflow-y:auto;
-    position:fixed;
-    right: 0;
-    top:10vh;
-    pointer-events:all;
-  }
-
-  .mangaViewer__sidebar .title{
-    padding:15px;
-    border-bottom: rgba(0,0,0,0.3) 1px solid;
-    font-weight:bold;
-    font-size:1em;
-    text-align:center;
-  }
-
-  .mangaViewer__chapter-list-item{
-    padding:10px 15px;
-    border-bottom: #ccc 1px solid;
-    transition: background-color 0.3s;
-    cursor:pointer;
-    text-align:center;
-    font-weight:300;
-  }
-
-  .mangaViewer__chapter-list-item:hover{
-    background-color:rgba(150,150,200,0.4);
-  }
-
-  .cur{
-    background-color:rgba(0,0,0,0.15);
   }
 
   .mangaViewer__pager div{
