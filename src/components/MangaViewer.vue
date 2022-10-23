@@ -111,33 +111,19 @@ import MangaViewerSidebar from './MangaViewerSidebar.vue';
         <div class="loader-line" v-if="loading"></div>
 
         <div class="mangaViewer__pager">
-          <div :class="`mangaViewer__pager-left ${firstPage ? 'first' : ''}`" @click="previousPage"></div>
-          <div :class="`mangaViewer__pager-right ${lastPage ? 'last' : ''}`" @click="nextPage"></div>
+          <div :class="`mangaViewer__pager-left ${firstPage ? 'first' : '' }`" @click="previousPage"></div>
+          <div :class="`mangaViewer__pager-right ${lastPage ? 'last' : '' }`" @click="nextPage"></div>
         </div>
       </div>
     </div>
 
     <MangaViewerSidebar :chapters="manga.chapters" :current-chapter="currentChapterIndex" @change-chapter="changeChapter" />
-
-    <div class="MangaViewer__actions">
-      <button @click="previousChapter">Prev</button>
-      <div>{{currentPage + 1}} / {{pageCount}}</div>
-      <button @click="nextChapter">NextCH</button>
-    </div>
   </div>
   
 </div>
 </template>
   
 <style scoped>
-
-  .mangaViewer__info{
-    text-align:center;
-    margin-bottom:15px;
-    color:white;
-    text-shadow: 3px 3px 5px rgba(0,0,0,0.6);
-    position:relative;
-  }
 
   .manga-viewer__background{
     display: flex;
@@ -225,12 +211,6 @@ import MangaViewerSidebar from './MangaViewerSidebar.vue';
   .MangaViewer__image {
     height: 100%;
     margin: 0 0 15px;
-  }
-
-  .MangaViewer__actions {
-    display: flex;
-    justify-content: space-between;
-    display:none;
   }
 
   img {

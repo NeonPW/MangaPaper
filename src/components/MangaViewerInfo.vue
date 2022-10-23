@@ -27,6 +27,13 @@
 </template>
 
 <style scoped>
+  .mangaViewer__info{
+    text-align:center;
+    margin-bottom:15px;
+    color:white;
+    text-shadow: 3px 3px 5px rgba(0,0,0,0.6);
+    position:relative;
+  }
   .mangaViewer__info-pager{
     position:absolute;
     bottom:0;
@@ -36,12 +43,23 @@
   .mangaViewer__info-chapter{
     text-align:center;
     font-size: 1.25em;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    max-width:90%;
+    margin:0 auto;
+    height:1.4em;
   }
 
   .manga-title{
     color:white;
     font-weight:700;
-    font-size:2.4em;
+    font-size:2.2em;
     margin:0;
+    max-width:90%;
+    margin:0 auto;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
   }
 </style>
