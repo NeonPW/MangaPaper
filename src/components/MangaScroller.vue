@@ -18,7 +18,7 @@
   }>()
 
   const createPanel = async () => {
-    if (paused.value) return;
+    if (paused.value || document.hidden) return;
     const selectedManga = await getMangaRandom()
     console.log(selectedManga);
     if (!selectedManga) return;
