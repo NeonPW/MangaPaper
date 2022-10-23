@@ -1,15 +1,19 @@
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
+  import { Ref, ref, watch } from 'vue'
   import { useTags } from '../composables/useTags';
   import { getStorageArray, setStorageArray } from '../util/helpers';
   import { STORAGE } from '../util/constants';
   import TagSwitch from './TagSwitch.vue';
+  import SettingsPanel from './SettingsPanel.vue';
+
 
   export type TagSelection = {
     id: string;
     name: string;
     value: string;
   }
+
+  defineEmits(['close']);
 
   const tagValues = ref([] as TagSelection[]);
 
@@ -49,24 +53,29 @@
       }
     })
   })
-
 </script>
 
 <template>
-    <div style="display:flex;flex-wrap:wrap;">
-      <TagSwitch
-        v-for="tag in tagValues"
-        :key="tag.id"
-        :id="tag.id"
-        :name="tag.name"
-        :value="tag.value"
-        @change-value="toggleTag"
-      />
-
-      <button @click="saveTags">Save Tags</button>
-    </div>
-
+  <SettingsPanel title="Set Tags" subtitle="Filter by tags (green), or exclude them (red) by clicking" v-bind="$attrs">
+    <template #content>
+      <div style="display:flex;flex-wrap:wrap;">
+        <TagSwitch
+          v-for="tag in tagValues"
+          :key="tag.id"
+          :id="tag.id"
+          :name="tag.name"
+          :value="tag.value"
+          @change-value="toggleTag"
+        />
+      </div>
+    </template>
     
+    
+    <template #actions>
+      <div class="button normal" @click="$emit('close')">Cancel</div>
+      <div class="button" @click="saveTags">Save Tags</div>
+    </template>
+  </SettingsPanel>
 </template>
 
 <style scoped>

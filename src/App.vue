@@ -7,19 +7,16 @@
   import SettingsPanel from './components/SettingsPanel.vue';
   import SettingsRatings from './components/SettingsRatings.vue';
 
-  const showSettings = ref(false);
-
+  const showTags = ref(false);
+  const showRatings = ref(true);
 </script>
 
 <template>
-  <MangaScroller :spawn-rate="2000" />
-
-  <SettingsPanel title="Change Settings" v-if="showSettings">
-    <SettingsTags />
-    <SettingsRatings />
-  </SettingsPanel>
+  <MangaScroller :spawn-rate="10000" />
   
-  <button class="settingsToggle" @click="showSettings = !showSettings">Toggle Settings</button>
+  <SettingsTags @close="showTags = false" :show="showTags" />
+  <SettingsRatings @close="showRatings = false" :show="showRatings" />
+  
 </template>
 
 <style scoped>

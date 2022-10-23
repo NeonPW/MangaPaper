@@ -18,6 +18,26 @@ export const STORAGE = {
   LANGUAGES: 'languages',
 }
 
+
+//TODO: Add more, or figure out a good way to filter these without having zero results
+export const LANGUAGES = [
+  'en',
+  'ja',
+  'ko',
+  'zh',
+  'es',
+  'de',
+];
+
+export const LANGUAGE_NAMES = {
+  ['en']: 'English',
+  ['ja']: 'Japanese',
+  ['ko']: 'Korean',
+  ['zh']: 'Chinese',
+  ['es']: 'Spanish',
+  ['de']: 'German',
+}
+
 export enum CONTENT_RATINGS {
   "safe",
   "suggestive",
@@ -132,3 +152,4 @@ export type MangaView = {
   currentPage: number;
   chapters: Chapter[];
 }
+

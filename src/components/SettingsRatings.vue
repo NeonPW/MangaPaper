@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { STORAGE } from '../util/constants';
 import { getStorageArray, setStorageArray } from '../util/helpers';
+import SettingsPanel from './SettingsPanel.vue';
 
 
   const curRatings = getStorageArray(STORAGE.CONTENT_RATING);
@@ -23,34 +24,41 @@ import { getStorageArray, setStorageArray } from '../util/helpers';
 </script>
 
 <template>
-  <div style="display:flex;">
-    <div
-      class="settings__toggler"
-      :class="form.safe ? 'green' : 'red' "
-      @click="form.safe = !form.safe"
-    >
-      Safe
-    </div>
+  <SettingsPanel title="Set Ratings" subtitle="Choose wisely" v-bind="$attrs">
+    <template #content>
+      <div style="display:flex;">
+        <div
+          class="settings__toggler"
+          :class="form.safe ? 'green' : 'red' "
+          @click="form.safe = !form.safe"
+        >
+          Safe
+        </div>
 
-    <div
-      class="settings__toggler"
-      :class="form.suggestive ? 'green' : 'red' "
-      @click="form.suggestive = !form.suggestive"
-    >
-      Suggestive
-    </div>
+        <div
+          class="settings__toggler"
+          :class="form.suggestive ? 'green' : 'red' "
+          @click="form.suggestive = !form.suggestive"
+        >
+          Suggestive
+        </div>
 
-    <div
-      class="settings__toggler"
-      :class="form.erotica ? 'green' : 'red' "
-      @click="form.erotica = !form.erotica"
-    >
-      Smut
-    </div>
+        <div
+          class="settings__toggler"
+          :class="form.erotica ? 'green' : 'red' "
+          @click="form.erotica = !form.erotica"
+        >
+          Smut
+        </div>
+      </div>
+    </template>
 
-    <button @click="saveRatings">Save Ratings</button>
-  </div>
-
+    <template #actions>
+      <div class="button normal" @click="$emit('close')">Cancel</div>
+      <div class="button" @click="saveRatings">Save Ratings</div>
+    </template>
+    
+  </SettingsPanel>
   
 </template>
 
