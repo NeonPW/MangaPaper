@@ -29,4 +29,6 @@
     margin-left:10px;
   }
 
+  .settings__toggler{}
+
 </style>

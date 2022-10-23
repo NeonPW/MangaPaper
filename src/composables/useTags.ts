@@ -12,7 +12,9 @@ export const useTags = () => {
   const tags = ref([] as Tag[]);
 
   axios.get<TagResult>(endpoint).then(({data}) => {
-    tags.value = data.data;
+    let datas = data.data;
+    datas.sort((a,b) => a.attributes.name.en.localeCompare(b.attributes.name.en))
+    tags.value = datas;
   }).catch((err) => {
     console.log(err);
   })

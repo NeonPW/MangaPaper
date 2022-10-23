@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { STORAGE } from '../util/constants';
-import { getStorageArray, setStorageArray } from '../util/helpers';
-import SettingsPanel from './SettingsPanel.vue';
+  import { ref } from 'vue';
+  import { STORAGE } from '../util/constants';
+  import { getStorageArray, setStorageArray } from '../util/helpers';
+  import SettingsPanel from './SettingsPanel.vue';
+
+  const emits = defineEmits(['close'])
 
 
   const curRatings = getStorageArray(STORAGE.CONTENT_RATING);
@@ -19,12 +21,13 @@ import SettingsPanel from './SettingsPanel.vue';
       if (val) ratings.push(key);
     }
     setStorageArray(STORAGE.CONTENT_RATING, ratings);
+    emits('close');
   }
 
 </script>
 
 <template>
-  <SettingsPanel title="Filter Manga By Ratings" subtitle="Choose wisely" v-bind="$attrs">
+  <SettingsPanel title="Filter Manga By Ratings" subtitle="Choose wisely." v-bind="$attrs">
     <template #content>
       <div style="display:flex;">
         <div :class="['settings__toggler',form.safe ? 'green' : 'red']"
@@ -41,7 +44,7 @@ import SettingsPanel from './SettingsPanel.vue';
         </div>
 
         <div
-          :class="['settings__toggler',form.erotica ? 'green' : 'red']"
+          :class="['settings__toggler','smut',form.erotica ? 'green' : 'red']"
           @click="form.erotica = !form.erotica"
         >
           Smut
@@ -63,5 +66,25 @@ import SettingsPanel from './SettingsPanel.vue';
     width:100%;
     height:69px;
     justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .settings__toggler.smut:before{
+    content:'';
+    display:block;
+    position:absolute;
+    top:0;
+    left:-40px;
+    height:100%;
+    width:100%;
+    background:url('/peek.png');
+    background-size: contain;
+    background-repeat:no-repeat;
+    transition:left 0.8s;
+  }
+
+  .settings__toggler.smut.green:before{
+    left:-4px;
   }
 </style>

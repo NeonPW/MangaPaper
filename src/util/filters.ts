@@ -7,7 +7,7 @@ export const getMangaFilters = () => {
     excludedTags: getStorageArray(STORAGE.EXCLUDED_TAGS),
     includedTagsMode: 'OR',
     contentRating: getStorageArray(STORAGE.CONTENT_RATING),
-    availableTranslatedLanguage: getStorageArray(STORAGE.LANGUAGES),
+    availableTranslatedLanguage:['en'],
     hasAvailableChapters: '1',
     includes:['artist'],
   }
@@ -15,6 +15,6 @@ export const getMangaFilters = () => {
 
 export const getChapterFilters = () => {
   return {
-    translatedLanguage: getStorageArray(STORAGE.LANGUAGES),
+    translatedLanguage: ['en'],
   }
 }

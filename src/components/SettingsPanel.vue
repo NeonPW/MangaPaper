@@ -44,11 +44,13 @@ import { Ref } from 'vue';
     min-height:150px;
     padding:15px;
     border-radius:4px;
-    max-width:80vw;
+    max-width:70vw;
+    color:rgba(0,0,0,0.8);
+    font-size:0.95rem;
   }
 
   .settings__title{
-    font-size:1.4em;
+    font-size:1.5rem;
     font-weight:bold;
     color:rgb(78, 78, 208);
   }
@@ -56,6 +58,7 @@ import { Ref } from 'vue';
   .settings__subtitle{
     margin-bottom:10px;
     font-weight:100;
+    font-size:1.2rem;
   }
 
   .settings__actions{
@@ -63,22 +66,17 @@ import { Ref } from 'vue';
     margin-top:10px; 
   }
 
-  .settings__actions .button{
-    font-size: .875rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    background-color: #e6e6e6;
-    color: rgba(0,0,0,.8);
-    border-radius: .25rem;
-    border-style: none;
-    border-width: 0;
-    -webkit-appearance: button;
-    text-transform: none;
-    overflow: visible;
-    line-height: 1.15;
-    margin: 0;
+  .settings__toggler{
+    margin:6px;
+    border: #ccc 1px solid;
+    padding:5px 10px;
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+    user-select: none;
+    border-radius:6px;
+    font-weight:bold;
+    position:relative;
     will-change: transform;
     -moz-osx-font-smoothing: grayscale;
     -webkit-backface-visibility: hidden;
@@ -88,34 +86,24 @@ import { Ref } from 'vue';
     transition: -webkit-transform .25s ease-out;
     transition: transform .25s ease-out;
     transition: transform .25s ease-out,-webkit-transform .25s ease-out;
-    display:inline-block;
-    margin:0px 5px;
   }
 
-  .settings__actions .button:before{
-    content:'';
-    display:block;
+  .settings__toggler::after{
     position:absolute;
     top:0;left:0;right:0;bottom:0;
-    background-color:transparent;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    background-color:rgba(0,0,0,0);
+    content: '';
+    display:block;
   }
 
-  .settings__actions .button:hover{
+  .settings__toggler:hover{
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
   }
 
-  .settings__actions .button:hover:before{
-    background-color:rgba(0,0,0,0.2);
+  .settings__toggler:hover::after{
+    background-color:rgba(0,0,0,0.14);
   }
 
-  .settings__actions .button:last-child{
-    margin-right:none;
-  }
-
-  .button.primary{
-    background-color: #00449e;
-    color: #fff;
-  }
 </style>

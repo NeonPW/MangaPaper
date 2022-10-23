@@ -13,7 +13,7 @@
     value: string;
   }
 
-  defineEmits(['close']);
+  
 
   const tagValues = ref([] as TagSelection[]);
 
@@ -56,7 +56,11 @@
 </script>
 
 <template>
-  <SettingsPanel title="Set Tags" subtitle="Filter by tags (green), or exclude them (red) by clicking" v-bind="$attrs">
+  <SettingsPanel
+    title="Set Tag Filters"
+    subtitle="Limit by specific tags (green), or exclude them (red) by clicking. Leaving everything blank includes all tags"
+    v-bind="$attrs"
+  >
     <template #content>
       <div style="display:flex;flex-wrap:wrap;">
         <TagSwitch
@@ -72,8 +76,8 @@
     
     
     <template #actions>
-      <div class="button normal" @click="$emit('close')">Cancel</div>
-      <div class="button" @click="saveTags">Save Tags</div>
+      <div class="button" @click="$emit('close')">Cancel</div>
+      <div class="button primary" @click="saveTags">Save Tags</div>
     </template>
   </SettingsPanel>
 </template>

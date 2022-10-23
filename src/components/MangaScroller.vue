@@ -15,10 +15,11 @@
 
   const props = defineProps<{
     spawnRate: number;
+    pause?: boolean;
   }>()
 
   const createPanel = async () => {
-    if (paused.value || document.hidden) return;
+    if (paused.value || document.hidden || props.pause) return;
     const selectedManga = await getMangaRandom()
     console.log(selectedManga);
     if (!selectedManga) return;

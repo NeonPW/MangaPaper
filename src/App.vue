@@ -6,16 +6,54 @@
   import SettingsTags from './components/SettingsTags.vue';
   import SettingsPanel from './components/SettingsPanel.vue';
   import SettingsRatings from './components/SettingsRatings.vue';
+import SettingsIntro from './components/SettingsIntro.vue';
+import SettingsFloater from './components/SettingsFloater.vue';
 
-  const showTags = ref(true);
+  const firstRun = ref(localStorage.getItem('fr1') !== "1");
+
+  const showIntro = ref(firstRun.value);
+  const showTags = ref(false);
   const showRatings = ref(false);
+  
+  const closeTags = () => {
+    showTags.value = false;
+    if (firstRun.value){
+      showIntro.value = true;
+    }
+  }
+
+  const closeRatings = () => {
+    showRatings.value = false;
+    if (firstRun.value){
+      showIntro.value = true;
+    }
+  }
+
+  const closeIntro = () => {
+    firstRun.value = false;
+    showIntro.value = false;
+  }
+
+  const openTags = () => {
+    showIntro.value = false;
+    showTags.value = true;
+  }
+
+  const openRatings = () => {
+    showIntro.value = false;
+    showRatings.value = true;
+  }
+
 </script>
 
 <template>
-  <MangaScroller :spawn-rate="10000" />
+  <SettingsFloater @open-ratings="openRatings" @open-tags="openTags"/>
+
+  <MangaScroller :spawn-rate="3000" :pause="firstRun"/>
   
-  <SettingsTags @close="showTags = false" :show="showTags" />
-  <SettingsRatings @close="showRatings = false" :show="showRatings" />
+  <SettingsIntro @close="closeIntro" :show="showIntro" @open-ratings="openRatings" @open-tags="openTags"/>
+  <SettingsTags @close="closeTags" :show="showTags" />
+  <SettingsRatings @close="closeRatings" :show="showRatings" />
   
 </template>
 
