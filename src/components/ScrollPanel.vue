@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { computed } from '@vue/reactivity';
   import { ref, watch } from 'vue';
   import { Manga } from '../util/constants';
   import MangaPanel from './MangaPanel.vue';
@@ -84,8 +83,6 @@
   >
     <MangaPanel
       :manga="manga"
-      :paused="paused"
-      :random="true"
       v-bind="$attrs"
       @imageLoaded="imageLoaded"
     />

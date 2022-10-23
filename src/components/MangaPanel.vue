@@ -1,10 +1,7 @@
 <script setup lang="ts">
-  import { ref, computed, watch } from 'vue';
+  import { computed } from 'vue';
   import { Manga } from '../util/constants';
-  import { Chapter, MangaView } from '../util/constants';
-
-  import ChapterPanel from './ChapterPanel.vue';
-  import MangaViewer from './MangaViewer.vue';
+  import { MangaView } from '../util/constants';
 
   const props = defineProps<{
     manga: Manga;
@@ -15,6 +12,7 @@
   const emits = defineEmits(['imageLoaded', 'imageError', 'viewManga'])
 
   const popupViewer = () => {
+    // Caught by MangaScroller
     emits('viewManga', {
       manga: props.manga,
     } as MangaView);
@@ -22,8 +20,14 @@
 </script>
 
 <template>
-  <img :src="previewImage" @load="$emit('imageLoaded')" @error="(e) => $emit('imageError', e)" @click="popupViewer"
-    v-bind="$attrs" v-if="previewImage" />
+  <img 
+    :src="previewImage"
+    @load="$emit('imageLoaded')"
+    @error="(e) => $emit('imageError', e)"
+    @click="popupViewer"
+    v-bind="$attrs"
+    v-if="previewImage"
+  />
 </template>
 
 <style scoped>

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import SettingsPanel from './SettingsPanel.vue';
   import { ref, watch } from 'vue'
   import { useTags } from '../composables/useTags';
   import { getStorageArray, setStorageArray } from '../util/helpers';
-  import { STORAGE, Tag } from '../util/constants';
+  import { STORAGE } from '../util/constants';
   import TagSwitch from './TagSwitch.vue';
 
   export type TagSelection = {

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
-import {TagSelection} from './SettingsTags.vue';
+  import { computed } from 'vue';
 
   const props = defineProps<{
     name: string;
@@ -14,14 +13,9 @@ import {TagSelection} from './SettingsTags.vue';
     emits('changeValue', props.id, props.value);
   }
 
-  const icon = computed(() => {
-    return props.value === 'none' ? 'check_box_outline_blank' : props.value === 'included' ? 'check_box' : 'indeterminate_check_box';
-  })
-
   const color = computed(() => {
     return props.value === 'none' ? '' : props.value === 'included' ? 'green' : 'red';
   })
-
 </script>
 
 <template>
@@ -31,8 +25,6 @@ import {TagSelection} from './SettingsTags.vue';
 </template>
 
 <style scoped>
-  
-
   .material-icons{
     margin-left:10px;
   }

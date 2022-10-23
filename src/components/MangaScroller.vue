@@ -17,7 +17,7 @@
     spawnRate: number;
   }>()
 
-  const spawnPanel = async () => {
+  const createPanel = async () => {
     if (paused.value) return;
     const selectedManga = await getMangaRandom()
     console.log(selectedManga);
@@ -31,7 +31,7 @@
     });
   }
 
-  const err = (e: Event, mangaId: string) => {
+  const imageError = (e: Event, mangaId: string) => {
     const el = e.target as Element;
     setTimeout(() => {
       if (el.getAttribute('src') === "")(
@@ -51,7 +51,7 @@
     paused.value = false;
   }
 
-  const spawnTimer = setInterval(spawnPanel, props.spawnRate);
+  const spawnTimer = setInterval(createPanel, props.spawnRate);
 
   onBeforeUnmount(() => {
     clearInterval(spawnTimer);
@@ -69,7 +69,7 @@
       :manga="manga"
       :paused="paused"
       @scroll-complete="removePanel(manga.id)"
-      @image-error="err($event, manga.id)"
+      @image-error="imageError($event, manga.id)"
       @view-manga="viewManga"
     />
 
