@@ -7,8 +7,8 @@
   import SettingsPanel from './components/SettingsPanel.vue';
   import SettingsRatings from './components/SettingsRatings.vue';
 
-  const showTags = ref(false);
-  const showRatings = ref(true);
+  const showTags = ref(true);
+  const showRatings = ref(false);
 </script>
 
 <template>

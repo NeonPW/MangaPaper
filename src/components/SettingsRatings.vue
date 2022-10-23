@@ -24,28 +24,24 @@ import SettingsPanel from './SettingsPanel.vue';
 </script>
 
 <template>
-  <SettingsPanel title="Set Ratings" subtitle="Choose wisely" v-bind="$attrs">
+  <SettingsPanel title="Filter Manga By Ratings" subtitle="Choose wisely" v-bind="$attrs">
     <template #content>
       <div style="display:flex;">
-        <div
-          class="settings__toggler"
-          :class="form.safe ? 'green' : 'red' "
+        <div :class="['settings__toggler',form.safe ? 'green' : 'red']"
           @click="form.safe = !form.safe"
         >
           Safe
         </div>
 
         <div
-          class="settings__toggler"
-          :class="form.suggestive ? 'green' : 'red' "
+          :class="['settings__toggler',form.suggestive ? 'green' : 'red']"
           @click="form.suggestive = !form.suggestive"
         >
           Suggestive
         </div>
 
         <div
-          class="settings__toggler"
-          :class="form.erotica ? 'green' : 'red' "
+          :class="['settings__toggler',form.erotica ? 'green' : 'red']"
           @click="form.erotica = !form.erotica"
         >
           Smut
@@ -54,8 +50,8 @@ import SettingsPanel from './SettingsPanel.vue';
     </template>
 
     <template #actions>
-      <div class="button normal" @click="$emit('close')">Cancel</div>
-      <div class="button" @click="saveRatings">Save Ratings</div>
+      <div class="button" @click="$emit('close')">Cancel</div>
+      <div class="button primary" @click="saveRatings">Save Ratings</div>
     </template>
     
   </SettingsPanel>
@@ -63,5 +59,9 @@ import SettingsPanel from './SettingsPanel.vue';
 </template>
 
 <style scoped>
-
+  .settings__toggler{
+    width:100%;
+    height:69px;
+    justify-content:center;
+  }
 </style>
