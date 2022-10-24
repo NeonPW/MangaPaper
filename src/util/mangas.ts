@@ -25,32 +25,46 @@ export const fetchMangas = async (options: MangaOptions) => {
   const { limit, random, total } = options;
   const params = getMangaFilters();
 
+  const randomOffset = random ? Math.floor(Math.random() * Math.min(total, 9999)) : 0;
+
+  let probablyBadRequest = false;
+
   const [manga] = await axios<MangaResult>({
     method: 'GET',
     url: endpoint,
     params:{
       ...params,
       limit: limit,
-      offset: random ? Math.floor(Math.random() * Math.min(total, 9999)) : 0,
+      offset: randomOffset,
     }
   }).then(({ data }) => {
+    if (randomOffset > data.total){
+      probablyBadRequest = true;
+    }
     options.total = data.total;
     return data.data;
   })
 
-  const chapters = await fetchChapters(manga.id);
-  const randomChapter = getRandomItem(chapters);
-  const chapterPages = await fetchPages(randomChapter.item?.id);
-  const randomPage = getRandomItem(chapterPages);
+  let chapters = null;
+  let randomChapter = null;
+  let chapterPages = null;
+  let randomPage = null;
+
+  if (!probablyBadRequest){
+    chapters = await fetchChapters(manga.id);
+    randomChapter = getRandomItem(chapters);
+    chapterPages = await fetchPages(randomChapter.item?.id);
+    randomPage = getRandomItem(chapterPages);
+  }
 
   return {
     ...manga,
     chapters,
     totalResults: options.total,
-    startPage: randomPage.index,
-    startChapter: randomChapter.index,
+    startPage: randomPage?.index ?? 0,
+    startChapter: randomChapter?.index ?? 0,
     pageCount: chapterPages?.length ?? 0,
-    pages: chapterPages,
+    pages: chapterPages ?? [],
   }
 }
 

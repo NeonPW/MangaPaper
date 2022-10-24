@@ -62,8 +62,6 @@
 
 <template>
   <div class="manga-scroller">
-    {{ totalManga }}
-
     <ScrollPanel 
       v-for="manga in scrollingMangas"
       :key="manga.id"

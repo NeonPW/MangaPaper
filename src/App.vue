@@ -6,8 +6,8 @@
   import SettingsTags from './components/SettingsTags.vue';
   import SettingsPanel from './components/SettingsPanel.vue';
   import SettingsRatings from './components/SettingsRatings.vue';
-import SettingsIntro from './components/SettingsIntro.vue';
-import SettingsFloater from './components/SettingsFloater.vue';
+  import SettingsIntro from './components/SettingsIntro.vue';
+  import SettingsFloater from './components/SettingsFloater.vue';
 
   const firstRun = ref(localStorage.getItem('fr1') !== "1");
 
