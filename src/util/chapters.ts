@@ -19,8 +19,6 @@ export const fetchChapters = async(mangaId: string) => {
   }).then(({ data }) => {
     let datas = data.data;
     datas.sort((a,b) => parseInt(a.attributes.chapter) > parseInt(b.attributes.chapter) ? 1 : -1)
-    
-    console.log(datas);
     return datas;
   });
 }

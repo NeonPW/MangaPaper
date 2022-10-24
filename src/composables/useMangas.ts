@@ -13,8 +13,6 @@ export const useMangas = () => {
 
     try {
       const manga = await fetchMangas(options);
-      console.log('ASDFASDFASDF');
-      console.log(manga);
       totalManga.value = manga.totalResults;
       return manga;
     } catch (err) {

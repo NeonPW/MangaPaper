@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+  import { ref } from 'vue';
+
+  const emits = defineEmits(['openRatings','openTags','openIntro'])
 
   const showPanel = ref(false);
 
-  defineEmits(['openRatings','openTags','openIntro'])
+  const openTags = () => {
+    showPanel.value = false;
+    emits('openTags');
+  }
+
+  const openRatings = () => {
+    showPanel.value = false;
+    emits('openRatings');
+  }
+
+  
 </script>
 
 <template>
@@ -11,16 +23,16 @@ import { ref } from 'vue';
     <div class="topbar__item">
       <div :class="['topbar__item-panel', showPanel ? 'show' : '']">
         <div>
-          <div class="secondary button" @click="$emit('openTags')">
+          <div class="secondary button" @click="openTags">
             Change Tags
           </div>
-          <div class="secondary button" @click="$emit('openRatings')">
+          <div class="secondary button" @click="openRatings">
             Change Ratings
           </div>
         </div>
       </div>
       <div class="topbar__item-label" @click="showPanel = !showPanel">
-        <span>Filters</span>
+        <span>Settings</span>
       </div>
     </div>
   </div>
@@ -45,15 +57,23 @@ import { ref } from 'vue';
   .topbar__item-label{
     font-size:0.7rem;
     font-weight:600;
-    cursor:pointer;
+    cursor:default;
   }
 
   .topbar__item-label span{
+    position:relative;
+    z-index:-1;
     background-color:#fff;
     margin-top:0;
     padding:2px 15px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+    box-shadow:0px 0px 12px rgba(0,0,0,0.4);
+    transition:box-shadow 0.3s;
+  }
+
+  .topbar__item-label:hover span{
+    box-shadow:0px 0px 20px black;
   }
 
   .topbar__item-panel{
@@ -63,6 +83,7 @@ import { ref } from 'vue';
     overflow:hidden;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+    box-shadow:0px 0px 12px rgba(0,0,0,0.4);
   }
 
   .topbar__item-panel.show{

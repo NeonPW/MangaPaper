@@ -16,7 +16,7 @@
 
   const emits = defineEmits(['scrollComplete']);
 
-  const scrollSpeed = 20000 + Math.floor(Math.random() * 15000);
+  const scrollSpeed = 25000 + Math.floor(Math.random() * 25000);
   const panelHeight = 400 + Math.floor(Math.random() * (window.innerHeight - 500 - (window.innerHeight / 4)));
   const top = Math.floor(Math.random() * (window.innerHeight - panelHeight));
 

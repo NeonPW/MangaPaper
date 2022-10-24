@@ -9,11 +9,18 @@
 
   const curRatings = getStorageArray(STORAGE.CONTENT_RATING);
 
-  const form = ref({
+  const initialRatings = {
     safe: curRatings.length === 0 ? true : curRatings.includes('safe'),
     suggestive: curRatings.includes('suggestive'),
     erotica: curRatings.includes('erotica'),
-  })
+  }
+
+  const form = ref({...initialRatings})
+
+  const closePanel = () => {
+    form.value = {...initialRatings};
+    emits('close');
+  }
   
   const saveRatings = () => {
     let ratings = [];
@@ -53,7 +60,7 @@
     </template>
 
     <template #actions>
-      <div class="button" @click="$emit('close')">Cancel</div>
+      <div class="button" @click="closePanel">Cancel</div>
       <div class="button primary" @click="saveRatings">Save Ratings</div>
     </template>
     
