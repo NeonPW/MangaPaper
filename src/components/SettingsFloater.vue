@@ -1,7 +1,10 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
-  const emits = defineEmits(['openRatings','openTags','openIntro'])
+  const emits = defineEmits(['openRatings','openTags','openIntro','pauseToggle'])
+  const props = defineProps<{
+    paused: boolean;
+  }>() 
 
   const showPanel = ref(false);
 
@@ -28,6 +31,9 @@
           </div>
           <div class="secondary button" @click="openRatings">
             Change Ratings
+          </div><br/>
+          <div class="button" style="margin-top:10px;padding:10px;font-size:0.7em;" @click="$emit('pauseToggle')">
+            {{paused ? 'Resume Scrolling' : 'Pause Scrolling'}}
           </div>
         </div>
       </div>
@@ -86,11 +92,15 @@
     box-shadow:0px 0px 12px rgba(0,0,0,0.4);
   }
 
+  .topbar__item:hover .topbar__item-panel:not(.show){
+    max-height:5px;
+  }
+
   .topbar__item-panel.show{
     max-height:200px;
   }
 
   .topbar__item-panel div{
-    padding:20px;
+    padding: 20px;
   }
 </style>

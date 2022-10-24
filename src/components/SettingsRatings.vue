@@ -88,7 +88,7 @@
     background:url('/peek.png');
     background-size: contain;
     background-repeat:no-repeat;
-    transition:left 0.8s;
+    transition:left 0.6s;
   }
 
   .settings__toggler.smut.green:before{

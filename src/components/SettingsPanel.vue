@@ -12,6 +12,7 @@ import { Ref } from 'vue';
 <template>
   <div class="settings__background" v-if="show">
     <div class="settings__content">
+      <slot name="version"></slot>
       <div class="settings__title">{{title ?? ''}}</div>
       <div class="settings__subtitle">{{subtitle ?? ''}}</div>
       <slot name="content" ></slot>
@@ -47,12 +48,13 @@ import { Ref } from 'vue';
     max-width:70vw;
     color:rgba(0,0,0,0.8);
     font-size:0.95rem;
+    position:relative;
   }
 
   .settings__title{
     font-size:1.5rem;
     font-weight:bold;
-    color:rgb(78, 78, 208);
+    color:#00449e;
   }
 
   .settings__subtitle{

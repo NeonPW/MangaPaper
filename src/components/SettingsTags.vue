@@ -13,7 +13,7 @@
     value: string;
   }
 
-  
+  const emits = defineEmits(['close']);
 
   const tagValues = ref([] as TagSelection[]);
 
@@ -42,6 +42,7 @@
 
     setStorageArray(STORAGE.INCLUDED_TAGS, included);
     setStorageArray(STORAGE.EXCLUDED_TAGS, excluded);
+    emits('close');
   }
 
   watch (tags, () => {

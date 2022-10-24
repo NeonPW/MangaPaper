@@ -65,7 +65,7 @@
       v-for="manga in scrollingMangas"
       :key="manga.id"
       :manga="manga"
-      :paused="paused"
+      :paused="paused || pause || false"
       @scroll-complete="removePanel(manga.id)"
       @image-error="imageError($event, manga.id)"
       @view-manga="viewManga"

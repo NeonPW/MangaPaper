@@ -13,7 +13,7 @@ export const STORAGE = {
   ALL_TAGS: 'allTags',
   INCLUDED_TAGS: 'includedTags',
   EXCLUDED_TAGS: 'excludedTags',
-  FIRST_RUN: 'first-run-v1',
+  FIRST_RUN: 'first-runasdfasdf',
   CONTENT_RATING: 'contentRating',
   LANGUAGES: 'languages',
 }

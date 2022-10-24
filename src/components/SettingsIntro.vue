@@ -10,6 +10,10 @@
     subtitle="Thanks for trying out MangaPaper, powered by MangaDex.org!"
     v-bind="$attrs"
   >
+    <template #version>
+      <div class="vvvvvvvvvvvv">MangaPanel v0.69</div>
+    </template>
+
     <template #content>
       <div style="padding:0px 10px;">
         <div style="margin-bottom:10px;">
@@ -59,5 +63,14 @@
 
   .secondary.button{
     padding:15px;
+  }
+
+  .vvvvvvvvvvvv{
+    position:absolute;
+    top:5px;
+    right:10px;
+    font-size:0.7em;
+    font-weight:600;
+    color:rgba(0,0,0,0.2);
   }
 </style>
