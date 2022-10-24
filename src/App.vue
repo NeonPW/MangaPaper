@@ -53,7 +53,7 @@
 <template>
   <SettingsFloater :paused="pauseIt" @open-ratings="openRatings" @open-tags="openTags" @pause-toggle="pauseIt = !pauseIt" />
 
-  <MangaScroller :spawn-rate="2000" :pause="firstRun || pauseIt"/>
+  <MangaScroller :spawn-rate="2500" :pause="firstRun || pauseIt"/>
   
   <SettingsIntro @close="closeIntro" :show="showIntro" @open-ratings="openRatings" @open-tags="openTags"/>
   <SettingsTags @close="closeTags" :show="showTags" />
