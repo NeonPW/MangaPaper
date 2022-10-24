@@ -77,8 +77,6 @@
       v-bind="$attrs"
       v-if="showView"
     />
-
-    <button style="position:fixed;top:0;right:0;z-index:9999;" @click="paused = !paused">Pause/Unpause</button>
   </div>
 </template>
 
