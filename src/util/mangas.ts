@@ -45,7 +45,7 @@ export const fetchMangas = async (options: MangaOptions) => {
     return data.data;
   })
 
-  let chapters = null;
+  let chapters = undefined;
   let randomChapter = null;
   let chapterPages = null;
   let randomPage = null;
