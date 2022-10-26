@@ -36,7 +36,7 @@
 <template>
   <SettingsPanel title="Filter Manga By Ratings" subtitle="Choose wisely." v-bind="$attrs">
     <template #content>
-      <div style="display:flex;">
+      <div style="display:flex;" id="ratings">
         <div :class="['settings__toggler',form.safe ? 'green' : 'red']"
           @click="form.safe = !form.safe"
         >
@@ -67,31 +67,3 @@
   </SettingsPanel>
   
 </template>
-
-<style scoped>
-  .settings__toggler{
-    width:100%;
-    height:69px;
-    justify-content:center;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .settings__toggler.smut:before{
-    content:'';
-    display:block;
-    position:absolute;
-    top:0;
-    left:-40px;
-    height:100%;
-    width:100%;
-    background:url('/peek.png');
-    background-size: contain;
-    background-repeat:no-repeat;
-    transition:left 0.6s;
-  }
-
-  .settings__toggler.smut.green:before{
-    left:-4px;
-  }
-</style>
